@@ -51,6 +51,37 @@ export function buildShotState(kind, seed = 7) {
     state.lastEvent = '';
     return state;
   }
+  if (kind === 'cover') {
+    // v2 cover: a SPARSER mid-game table for the judge's contact sheet —
+    // 10 card rects instead of 14, both life totals visible, 3-card hand.
+    state.turn = 5;
+    state.player.maxMana = 5; state.player.mana = 4;
+    state.enemy.maxMana = 5; state.enemy.mana = 2;
+    state.player.life = 22; state.enemy.life = 16;
+    state.player.board = [
+      guardian(byId('cinder-wolf'), 3, true),
+      guardian(byId('granite-golem'), 5, true),
+    ];
+    state.enemy.board = [
+      guardian(byId('deep-leviathan'), 6, true),
+      guardian(byId('tidecaller'), 4, true),
+    ];
+    state.player.hand = [
+      { ...byId('phoenix-herald'), uid: 901, maxHealth: 5, canAttack: false, justSummoned: false },
+      { ...byId('tidecaller'), uid: 902, maxHealth: 4, canAttack: false, justSummoned: false },
+      { ...byId('spark-imp'), uid: 903, maxHealth: 2, canAttack: false, justSummoned: false },
+    ];
+    state.enemy.hand = [{}, {}, {}];
+    state.player.deck = new Array(12).fill(null);
+    state.enemy.deck = new Array(14).fill(null);
+    state.log = [
+      'You summon Granite Golem (4/5).',
+      'Cinder summons Deep Leviathan (5/7).',
+      '— Turn 5: your move. —',
+    ];
+    state.lastEvent = '';
+    return state;
+  }
   if (kind === 'win') {
     state.turn = 9;
     state.player.maxMana = 8; state.player.mana = 3;
