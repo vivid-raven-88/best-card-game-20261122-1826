@@ -1,0 +1,118 @@
+/* Ember Pact — felt table, gold trim, big readable cards. No external assets. */
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; }
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #f3e9c8;
+  background: #10160f radial-gradient(ellipse at 50% 30%, #1d2f1a 0%, #10160f 70%);
+}
+#app { height: 100%; }
+
+/* ---------- title screen ---------- */
+#title { height: 100%; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 50% 20%, rgba(255,107,53,.28), transparent 55%),
+              radial-gradient(ellipse at 50% 90%, rgba(56,182,255,.12), transparent 50%); }
+.titlecard { text-align: center; max-width: 640px; padding: 36px 44px;
+  border: 3px solid #d8b45a; border-radius: 18px; background: rgba(16,22,15,.92);
+  box-shadow: 0 0 60px rgba(255,107,53,.25), inset 0 0 40px rgba(0,0,0,.6); }
+.titleflame { font-size: 64px; line-height: 1; }
+#title h1 { margin: 8px 0 0; font-size: 58px; letter-spacing: 8px; color: #ffd97a;
+  text-shadow: 0 3px 0 #7a2410, 0 0 28px rgba(255,107,53,.6); }
+.subtitle { letter-spacing: 4px; color: #ff9a5c; margin: 6px 0 14px; font-size: 15px; }
+.tagline { font-size: 17px; line-height: 1.5; color: #f3e9c8; }
+.rules { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 18px; margin: 18px 0;
+  font-size: 15px; text-align: left; }
+.ruleline { grid-column: 1 / -1; color: #cbbd8f; font-size: 14px; }
+#play { font-family: inherit; font-size: 22px; font-weight: bold; color: #1a0e02;
+  background: linear-gradient(#ffd97a, #e8a93d); border: 2px solid #fff2c0; border-radius: 12px;
+  padding: 14px 30px; cursor: pointer; box-shadow: 0 4px 0 #7a5a12, 0 8px 24px rgba(0,0,0,.5); }
+#play:hover { filter: brightness(1.1); }
+#play:active { transform: translateY(3px); box-shadow: 0 1px 0 #7a5a12; }
+.keys { margin-top: 14px; font-size: 13px; color: #9aa78f; }
+
+/* ---------- table ---------- */
+#table { height: 100%; display: flex; flex-direction: column; padding: 10px 18px;
+  background: radial-gradient(ellipse at 50% 45%, #2a4a26 0%, #16240f 75%);
+  border: 10px solid #4a2f14; border-radius: 22px; outline: 3px solid #d8b45a; outline-offset: -13px; }
+.topbar, .bottombar { display: flex; align-items: center; gap: 16px; }
+.hero { display: flex; align-items: center; gap: 10px; min-width: 340px; }
+.hero.enemy-hero { cursor: pointer; }
+.hero.enemy-hero:hover .portrait { box-shadow: 0 0 0 3px #ff6b35; }
+.portrait { font-size: 34px; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+  background: #22301f; border: 2px solid #d8b45a; border-radius: 50%; }
+.heroinfo { flex: 1; }
+.heroinfo b { font-size: 16px; display: block; margin-bottom: 3px; }
+.lifebar { position: relative; height: 20px; background: #0c120a; border: 1px solid #d8b45a; border-radius: 10px; overflow: hidden; }
+.lifefill { height: 100%; background: linear-gradient(#ff8a5c, #e23b1e); transition: width .4s; }
+.lifefill.mid { background: linear-gradient(#ffd97a, #e8a93d); }
+.lifefill.low { background: linear-gradient(#ff5c5c, #a31212); }
+.lifebar span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: bold; color: #fff; text-shadow: 0 1px 2px #000; }
+.deckcount { font-size: 13px; color: #cbbd8f; white-space: nowrap; }
+.banner { flex: 1; text-align: center; font-size: 19px; font-weight: bold; letter-spacing: 1px; color: #ffd97a; }
+.banner.win { color: #7dff9a; } .banner.lose { color: #ff8a8a; }
+#end-turn { font-family: inherit; font-size: 17px; font-weight: bold; color: #1a0e02;
+  background: linear-gradient(#ffd97a, #e8a93d); border: 2px solid #fff2c0; border-radius: 10px;
+  padding: 10px 20px; cursor: pointer; }
+#end-turn:disabled { opacity: .35; cursor: default; }
+
+.handrow { display: flex; gap: 8px; justify-content: center; min-height: 132px; align-items: center; }
+.enemy-hand { min-height: 96px; }
+.enemy-hand .card.back { width: 62px; height: 88px; }
+.boardrow { display: flex; gap: 10px; justify-content: center; min-height: 158px; align-items: center;
+  border-top: 1px dashed rgba(216,180,90,.35); border-bottom: 1px dashed rgba(216,180,90,.35); padding: 6px 0; }
+.emptyboard, .emptyhand { color: #8fa184; font-style: italic; font-size: 15px; }
+.midrow { display: flex; align-items: center; gap: 16px; padding: 6px 4px; min-height: 54px; }
+.vs { font-size: 26px; }
+#gamelog { flex: 1; font-size: 13.5px; line-height: 1.45; color: #d8cfae; max-height: 52px; overflow: hidden; }
+.hint { font-size: 12.5px; color: #9aa78f; max-width: 340px; text-align: right; }
+.manarow { display: flex; align-items: center; gap: 3px; margin-left: auto; font-size: 15px; }
+.gem { color: #3a4a35; font-size: 20px; }
+.gem.lit { color: #ff9a3d; text-shadow: 0 0 10px #ff6b35; }
+.gem.locked { opacity: .3; }
+
+/* ---------- cards ---------- */
+.card { position: relative; width: 118px; height: 158px; flex: 0 0 auto; border-radius: 10px;
+  background: linear-gradient(#fff8e6, #f0dfb8); color: #221a08; border: 2px solid #8a6d2f;
+  box-shadow: 0 4px 10px rgba(0,0,0,.55); padding: 6px; cursor: pointer;
+  transition: transform .15s, box-shadow .15s; user-select: none; }
+.card:hover { transform: translateY(-6px); }
+.card.playable { box-shadow: 0 0 0 3px #ffd97a, 0 6px 14px rgba(0,0,0,.6); }
+.card.selected { transform: translateY(-10px); box-shadow: 0 0 0 3px #ff6b35, 0 0 22px rgba(255,107,53,.8); }
+.card.targetable { box-shadow: 0 0 0 3px #ff5c5c, 0 0 16px rgba(255,60,60,.7); cursor: crosshair; }
+.card.ready { box-shadow: 0 0 0 2px rgba(125,208,105,.8); }
+.card.sleeping { opacity: .85; }
+.cardcost { position: absolute; top: -8px; left: -8px; width: 30px; height: 30px; border-radius: 50%;
+  background: #2b6cb0; color: #fff; font-weight: bold; font-size: 17px; display: flex;
+  align-items: center; justify-content: center; border: 2px solid #fff; box-shadow: 0 2px 5px rgba(0,0,0,.5); }
+.cardglyph { height: 52px; border-radius: 7px; display: flex; align-items: center; justify-content: center;
+  font-size: 34px; border: 1px solid rgba(0,0,0,.25); }
+.cardname { font-weight: bold; font-size: 14.5px; text-align: center; margin-top: 5px; line-height: 1.1; }
+.cardel { text-align: center; font-size: 11.5px; font-weight: bold; letter-spacing: 1px; }
+.cardtext { font-size: 11.5px; font-style: italic; line-height: 1.25; text-align: center; color: #5a4a22; margin-top: 4px; min-height: 28px; }
+.cardstats { position: absolute; left: 6px; right: 6px; bottom: 6px; display: flex; justify-content: space-between; font-weight: bold; font-size: 16px; }
+.atk { color: #b3261e; } .hp { color: #1e7a34; }
+.sleeptag, .readytag { position: absolute; top: -9px; right: -6px; font-size: 10.5px; font-weight: bold;
+  background: #22301f; color: #ffd97a; border: 1px solid #d8b45a; border-radius: 8px; padding: 2px 6px; }
+.readytag { color: #b8ff9a; }
+.card.back { background: linear-gradient(135deg, #7a2410, #3d130a); border-color: #d8b45a;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: default; }
+.card.back:hover { transform: none; }
+.backsigil { font-size: 30px; }
+.backname { color: #ffd97a; font-size: 9px; letter-spacing: 2px; margin-top: 6px; }
+#player-hand .card { width: 128px; height: 168px; }
+
+/* ---------- end screen ---------- */
+#endscreen { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(8,10,6,.72); z-index: 10; }
+.endcard { text-align: center; max-width: 560px; padding: 34px 44px; border-radius: 18px;
+  background: rgba(16,22,15,.96); border: 3px solid #d8b45a; box-shadow: 0 0 70px rgba(0,0,0,.8); }
+#endscreen.win .endcard { box-shadow: 0 0 70px rgba(255,215,122,.45); }
+.endtitle { font-size: 52px; font-weight: bold; letter-spacing: 6px; color: #ffd97a; }
+#endscreen.lose .endtitle { color: #b9c4d6; }
+.endcard p { font-size: 17px; line-height: 1.55; }
+.endscore { color: #cbbd8f; margin-bottom: 18px; }
+#again, #totitle { font-family: inherit; font-size: 18px; font-weight: bold; padding: 12px 24px;
+  border-radius: 10px; cursor: pointer; margin: 0 6px; }
+#again { color: #1a0e02; background: linear-gradient(#ffd97a, #e8a93d); border: 2px solid #fff2c0; }
+#totitle.ghost { background: transparent; color: #f3e9c8; border: 2px solid #8a6d2f; }
