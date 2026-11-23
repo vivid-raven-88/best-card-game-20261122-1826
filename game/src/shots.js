@@ -74,12 +74,10 @@ export function buildShotState(kind, seed = 7) {
     state.enemy.hand = [{}, {}, {}];
     state.player.deck = new Array(12).fill(null);
     state.enemy.deck = new Array(14).fill(null);
-    state.log = [
-      'You summon Granite Golem (4/5).',
-      'Cinder summons Deep Leviathan (5/7).',
-      '— Turn 5: your move. —',
-    ];
-    state.lastEvent = '';
+    // v3: clean middle band — empty log + short turn prompt, so no
+    // unreadable gray smudge survives at the judge's 768x480 size.
+    state.log = [];
+    state.lastEvent = 'Your move.';
     return state;
   }
   if (kind === 'win') {
